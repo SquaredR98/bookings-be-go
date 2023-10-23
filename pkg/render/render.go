@@ -6,23 +6,34 @@ import (
 	"log"
 	"net/http"
 	"path/filepath"
+
+	"github.com/SquaredR98/bookings-be/pkg/config"
 )
 
+var app *config.AppConfig
+
+// NewTemplates sets the templlate for the template packages
+func NewTemplate(a *config.AppConfig) {
+	app = a
+}
+
 func RenderTemplates(w http.ResponseWriter, tmpl string) {
-	// Create a template cache
-	tc, err := createTemplateFromCache()
-	if err != nil {
-		log.Fatal(err)
+	var tc map[string]*template.Template
+
+	if app.UseCache {
+		tc = app.TemplateCache
+	} else {
+		tc, _ = CreateTemplateFromCache()
 	}
 
 	// Get requested template from cache
 	t, ok := tc[tmpl]
 	if !ok {
-		log.Fatal(err)
+		log.Fatal("Could not get the template", ok)
 	}
 
 	buf := new(bytes.Buffer)
-	err = t.Execute(buf, nil)
+	err := t.Execute(buf, nil)
 
 	if err != nil {
 		log.Println(err)
@@ -34,7 +45,7 @@ func RenderTemplates(w http.ResponseWriter, tmpl string) {
 	}
 }
 
-func createTemplateFromCache() (map[string]*template.Template, error) {
+func CreateTemplateFromCache() (map[string]*template.Template, error) {
 	myCache := map[string]*template.Template{} // Similar to using make done below
 
 	// Get all the files named *.page.tmpl from ./templates

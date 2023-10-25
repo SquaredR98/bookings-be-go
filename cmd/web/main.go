@@ -4,16 +4,30 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/SquaredR98/bookings-be/pkg/config"
 	"github.com/SquaredR98/bookings-be/pkg/handlers"
 	"github.com/SquaredR98/bookings-be/pkg/render"
+	"github.com/alexedwards/scs/v2"
 )
 
 const PORT = ":8080"
 
+var app config.AppConfig
+
+var session *scs.SessionManager
+
 func main() {
-	var app config.AppConfig
+	app.InProduction = false
+
+	session = scs.New()
+	session.Lifetime = 24 * time.Hour
+	session.Cookie.Persist = true
+	session.Cookie.SameSite = http.SameSiteLaxMode
+	session.Cookie.Secure = app.InProduction
+
+	app.Session = session
 
 	tc, err := render.CreateTemplateFromCache()
 
@@ -29,9 +43,16 @@ func main() {
 
 	render.NewTemplate(&app)
 
-	http.HandleFunc("/", handlers.Repo.Home)
-	http.HandleFunc("/about", handlers.Repo.About)
-
 	fmt.Printf("Server running on PORT: %s", PORT)
-	_ = http.ListenAndServe(PORT, nil)
+
+	srv := &http.Server{
+		Addr:    PORT,
+		Handler: routes(&app),
+	}
+
+	err = srv.ListenAndServe()
+
+	if err != nil {
+		log.Fatal(err)
+	}
 }

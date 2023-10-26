@@ -1,8 +1,70 @@
 {{template "base" .}}
 
 {{define "content"}}
-<div class="w-10/12 mx-auto">
-  <h1 class="text-2xl font-bold">This is home page.</h1>
-  <p>This is a paragraph in Home Page</p>
+<div id="home-carousel">
+  <div
+    class="h-[90vh]"
+    style="
+      background-image: url('/static/pexels-engin-akyurt-2952663.jpg');
+      background-size: cover;
+      background-position: center;
+    "
+  >
+    <div>
+      <h3>Hello First Slide</h3>
+      <p>Text for the first slide</p>
+    </div>
+  </div>
+  <div
+    class="h-[90vh]"
+    style="
+      background-image: url('/static/pexels-pixabay-164595.jpg');
+      background-size: cover;
+      background-position: center;
+    "
+  >
+    <div>
+      <h3>Hello First Slide</h3>
+      <p>Text for the first slide</p>
+    </div>
+  </div>
+  <div
+    class="h-[90vh]"
+    style="
+      background-image: url('/static/pexels-pixabay-271618.jpg');
+      background-size: cover;
+      background-position: center;
+    "
+  >
+    <div>
+      <h3>Hello First Slide</h3>
+      <p>Text for the first slide</p>
+    </div>
+  </div>
 </div>
-{{end}}
+
+<div class="w-11/12 lg:w-10/12 xl:w-8/12 mx-auto my-8">
+  <h1 class="text-4xl text-center font-bold">Welcome to the Afar Suites</h1>
+  <p class="text-center my-4">
+    Your home away from home, set on the majestic waters of the Atlantic ocean,
+    this will be vacation to remember. Your home away from home, set on the
+    majestic waters of the Atlantic ocean, this will be vacation to remember.
+  </p>
+  <div class="flex justify-center w-full">
+    <a
+      class="bg-slate-800 text-white px-8 rounded-full hover:shadow-lg py-3"
+      href="/book-now"
+      >Make Reservation Now</a
+    >
+  </div>
+</div>
+
+<script
+  type="text/javascript"
+  src="/static/javascripts/slick/slick.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="/static/javascripts/global/home.script.js"
+></script>
+{{ end }}

@@ -1,0 +1,41 @@
+{{template "base" .}}
+
+{{define "content"}}
+<div class="lg:w-10/12 xl:w-8/12 mx-auto">
+  <h1 class="text-4xl font-bold text-center my-8">Search For Availability</h1>
+  <form class="w-11/12 mx-auto">
+    <div
+      class="flex flex-col w-full lg:w-full md:flex-row mx-auto"
+      id="range-picker"
+    >
+      <div class="md:w-1/2 md:mr-2">
+        <label for="startDate" hidden class="text-xl font-bold">Start Date</label>
+        <input
+          required
+          name="startDate"
+          id="startDate"
+          placeholder="Arrival"
+          class="rounded-md my-2 outline-none border p-2 w-full"
+        />
+      </div>
+      <div class="md:w-1/2 md:ml-2">
+        <label for="endDate" hidden class="text-xl font-bold">End Date</label>
+        <input
+          required
+          id="endDate"
+          placeholder="Departure"
+          name="endDate"
+          class="rounded-md my-2 outline-none border p-2 w-full"
+        />
+      </div>
+    </div>
+    <button
+      class="bg-slate-800 text-white px-8 rounded-full hover:shadow-lg w-full py-3 md:w-full my-4 mx-auto"
+    >
+      Check Availability
+    </button>
+  </form>
+</div>
+<script src="/static/javascripts/datepicker/datepicker-full.min.js"></script>
+<script src="/static/javascripts/global/reservation.script.js"></script>
+{{ end }}

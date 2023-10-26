@@ -34,7 +34,7 @@ func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
 	stringMap["test"] = "Hello Again"
 	remoteIp := m.App.Session.GetString(r.Context(), "remoteIp")
 	stringMap["remoteIp"] = remoteIp
-	render.RenderTemplates(w, "about.page.tmpl", &models.TemplateData{
+	render.RenderTemplates(w, "general.page.tmpl", &models.TemplateData{
 		StringMap: stringMap,
 	})
 }

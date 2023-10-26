@@ -6,17 +6,92 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
+    <script
+      src="https://kit.fontawesome.com/6313808365.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/slick/slick.css" />
+    <link rel="stylesheet" href="/static/css/datepicker/datepicker.min.css" />
+    <link rel="stylesheet" href="/static/css/toastify/toastify.min.css" />
+    <script
+      type="text/javascript"
+      src="/static/javascripts/jquery/jquery-3.7.1.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="/static/javascripts/toastify/toastify-js.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="/static/javascripts/sweet-alert/sweetalert2@11.js"
+    ></script>
+
     {{block "css" .}}
 
-    {{end}}
+    {{
+      end
+    }}
   </head>
-  <body> 
+  <body>
+    <nav class="bg-slate-800 py-2">
+      <div
+        class="w-11/12 lg:w-10/12 xl:w-8/12 mx-auto flex justify-between items-center"
+      >
+        <div class="text-3xl font-bold text-slate-50">BOOKINGS</div>
+        <i
+          id="menu-bar"
+          class="fa-solid fa-bars text-3xl text-white lg:hidden hover:cursor-pointer"
+        ></i>
+        <div
+          id="menu-container"
+          class="hidden lg:block bg-slate-800 transition-all duration-300 ease-in-out"
+        >
+          <i
+            id="close-btn"
+            class="fa fa-times text-3xl text-white lg:hidden hover:cursor-pointer static top-0 left-0 w-11/12"
+            aria-hidden="true"
+          ></i>
+          <div id="menu-items" class="lg:flex lg:items-center">
+            <a href="/" class="mx-2 px-4 hover:cursor-pointer text-white/80"
+              >Home</a
+            >
+            <a
+              href="/about"
+              class="mx-2 px-4 hover:cursor-pointer text-white/80"
+              >About</a
+            >
+            <div class="lg:relative">
+              <a
+                href="/suites"
+                id="suites-link"
+                class="mx-2 px-4 hover:cursor-pointer text-white/80 group"
+                >Suites<span id="dropdown-icon"><i class="fa fa-chevron-down ml-2 group-hover:rotate-180 transition-all duration-300 ease-in-out" aria-hidden="true"></i></span
+              ></a>
+              <div id="navbar-dropdown" class="lg:fixed flex flex-col bg-slate-950 top-[3.1rem] py-2 hidden">
+                <a class="mx-2 px-4 py-2 hover:cursor-pointer hover:bg-slate-900 text-white/80" href="/general">General</a>
+                <a class="mx-2 px-4 py-2 hover:cursor-pointer hover:bg-slate-900 text-white/80" href="/premium">Premium</a>
+              </div>
+            </div>
+            <a
+              href="/contact"
+              class="mx-2 px-4 hover:cursor-pointer text-white/80"
+              >Contact</a
+            >
+            <a
+              href="/book-now"
+              class="mx-2 rounded-full px-4 py-1 mr-0 hover:cursor-pointer text-slate-900/80 bg-slate-300 hover:bg-slate-300/80 transition-all duration-200 ease-in-out"
+              >Book Now</a
+            >
+          </div>
+        </div>
+      </div>
+    </nav>
     {{block "content" .}}
-    {{end}}
+    {{ end }}
 
+    <script src="/static/javascripts/global/script.js"></script>
     {{block "js" .}}
-    {{end}}
+    {{ end }}
   </body>
 </html>
 {{ end }}

@@ -1,0 +1,34 @@
+{{ template "base" . }}
+
+{{define "content"}}
+<div class="w-full md:w-8/12 xl:w-1/3 mx-auto">
+  {{$res := index .Data "reservation"}}
+  <h1 class="text-3xl font-bold mt-8 text-center">Reservation Confirmation</h1>
+  <hr />
+  <table class="mt-4 w-full">
+    <thead></thead>
+    <tbody class="[&>*:nth-child(odd)]:bg-gray-100">
+      <tr class="my-2">
+        <td>Name: </td>
+        <td class="font-bold">{{$res.Fullname}}</td>
+      </tr>
+      <tr>
+        <td>Email: </td>
+        <td class="font-bold">{{$res.Email}}</td>
+      </tr>
+      <tr>
+        <td>Phone: </td>
+        <td class="font-bold">{{$res.Phone}}</td>
+      </tr>
+      <tr>
+        <td>Arrial: </td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Departure: </td>
+        <td></td>
+      </tr>
+    <tbody>
+  </table>
+</div>
+{{end}}

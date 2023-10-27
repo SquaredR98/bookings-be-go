@@ -36,7 +36,7 @@
         ></i>
         <div
           id="menu-container"
-          class="hidden lg:block bg-slate-800 transition-all duration-300 ease-in-out"
+          class="hidden lg:block flex flex-col lg:flex-row bg-slate-800 transition-all duration-300 ease-in-out"
         >
           <i
             id="close-btn"
@@ -44,19 +44,21 @@
             aria-hidden="true"
           ></i>
           <div id="menu-items" class="lg:flex lg:items-center">
-            <a href="/" class="mx-2 px-4 hover:cursor-pointer text-white/80"
+            <a
+              href="/"
+              class="mx-2 px-12 lg:px-4 py-2 hover:cursor-pointer text-white/80"
               >Home</a
             >
             <a
               href="/about"
-              class="mx-2 px-4 hover:cursor-pointer text-white/80"
+              class="mx-2 px-12 lg:px-4 py-2 hover:cursor-pointer text-white/80"
               >About</a
             >
             <div class="lg:relative group lg:h-full">
               <a
                 href="/suites"
                 id="suites-link"
-                class="mx-2 px-4 flex lg:h-full hover:cursor-pointer text-white/80"
+                class="mx-2 px-12 lg:px-4 py-2 flex lg:h-full hover:cursor-pointer text-white/80 items-center"
                 >Suites<span id="dropdown-icon"
                   ><i
                     class="fa fa-chevron-down ml-2 group-hover:rotate-180 transition-all duration-300 ease-in-out"
@@ -68,12 +70,12 @@
                 class="lg:fixed flex flex-col bg-slate-950 top-[3.1rem] py-2 hidden"
               >
                 <a
-                  class="mx-2 px-4 py-2 hover:cursor-pointer hover:bg-slate-900 text-white/80"
+                  class="mx-2 px-12 lg:px-4 py-2 hover:cursor-pointer hover:bg-slate-900 text-white/80"
                   href="/general"
                   >General</a
                 >
                 <a
-                  class="mx-2 px-4 py-2 hover:cursor-pointer hover:bg-slate-900 text-white/80"
+                  class="mx-2 px-12 lg:px-4 py-2 hover:cursor-pointer hover:bg-slate-900 text-white/80"
                   href="/premium"
                   >Premium</a
                 >
@@ -81,12 +83,12 @@
             </div>
             <a
               href="/contact"
-              class="mx-2 px-4 hover:cursor-pointer text-white/80"
+              class="mx-2 px-12 lg:px-4 py-2 hover:cursor-pointer text-white/80"
               >Contact</a
             >
             <a
               href="/availability"
-              class="mx-2 rounded-full px-4 py-1 mr-0 hover:cursor-pointer text-slate-900/80 bg-slate-300 hover:bg-slate-300/80 transition-all duration-200 ease-in-out"
+              class="mx-2 rounded-full px-12 lg:px-4 py-1 mr-0 my-1 hover:cursor-pointer text-slate-900/80 bg-slate-300 hover:bg-slate-300/80 transition-all duration-200 ease-in-out"
               >Book Now</a
             >
           </div>
@@ -100,9 +102,22 @@
       type="text/javascript"
       src="/static/javascripts/jquery/jquery-3.7.1.min.js"
     ></script>
+    <script src="/static/javascripts/global/script.js"></script>
+    <script type="text/javascript">
+      {{with .Error}}
+        notify("{{.}}", "error")
+      {{end}}
+
+      {{with .Flash}}
+        notify("{{.}}", "flash")
+      {{end}}
+
+      {{with .Warning}}
+        notify("{{.}}", "warning")
+      {{end}}
+    </script>
     {{block "js" .}}
     {{ end }}
-    <script src="/static/javascripts/global/script.js"></script>
   </body>
 </html>
 {{ end }}

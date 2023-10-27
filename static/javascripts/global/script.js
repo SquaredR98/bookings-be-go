@@ -5,7 +5,6 @@ document.getElementById("menu-bar").addEventListener("click", () => {
   if (menuContainer.classList.contains("hidden")) {
     menuContainer.classList.add(
       "fixed",
-      "flex-col",
       "h-screen",
       "w-3/4",
       "right-0",
@@ -18,10 +17,9 @@ document.getElementById("menu-bar").addEventListener("click", () => {
       "flex-col",
       "justify-center",
       "items-center",
-      "h-full"
     );
     menuItems.querySelectorAll("*").forEach((el) => {
-      el.classList.add("text-xl", "w-full", "text-center", "py-2");
+      el.classList.add("text-xl", "text-center");
     });
     document
       .getElementById("close-btn")
@@ -58,6 +56,17 @@ document.addEventListener("click", function (event) {
     hideDropdown();
   }
 });
+
+function notify(msg, msgType) {
+  Swal.fire({
+    toast: true,
+    position: 'top-end',
+    icon: msgType,
+    title: msg,
+    showConfirmButton: false,
+    timer: 1500
+  })
+}
 
 function Prompt() {
   let toast = function (data) {

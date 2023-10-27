@@ -15,14 +15,6 @@
     <link rel="stylesheet" href="/static/css/toastify/toastify.min.css" />
     <script
       type="text/javascript"
-      src="/static/javascripts/jquery/jquery-3.7.1.min.js"
-    ></script>
-    <script
-      type="text/javascript"
-      src="/static/javascripts/toastify/toastify-js.js"
-    ></script>
-    <script
-      type="text/javascript"
       src="/static/javascripts/sweet-alert/sweetalert2@11.js"
     ></script>
 
@@ -33,9 +25,9 @@
     }}
   </head>
   <body>
-    <nav class="bg-slate-800 py-2">
+    <nav class="bg-slate-800 h-14">
       <div
-        class="w-11/12 lg:w-10/12 xl:w-8/12 mx-auto flex justify-between items-center"
+        class="w-11/12 lg:w-10/12 xl:w-8/12 h-full mx-auto flex justify-between items-center"
       >
         <div class="text-3xl font-bold text-slate-50">BOOKINGS</div>
         <i
@@ -60,16 +52,31 @@
               class="mx-2 px-4 hover:cursor-pointer text-white/80"
               >About</a
             >
-            <div class="lg:relative">
+            <div class="lg:relative group h-full">
               <a
                 href="/suites"
                 id="suites-link"
-                class="mx-2 px-4 hover:cursor-pointer text-white/80 group"
-                >Suites<span id="dropdown-icon"><i class="fa fa-chevron-down ml-2 group-hover:rotate-180 transition-all duration-300 ease-in-out" aria-hidden="true"></i></span
+                class="mx-2 px-4 h-full hover:cursor-pointer text-white/80"
+                >Suites<span id="dropdown-icon"
+                  ><i
+                    class="fa fa-chevron-down ml-2 group-hover:rotate-180 transition-all duration-300 ease-in-out"
+                    aria-hidden="true"
+                  ></i></span
               ></a>
-              <div id="navbar-dropdown" class="lg:fixed flex flex-col bg-slate-950 top-[3.1rem] py-2 hidden">
-                <a class="mx-2 px-4 py-2 hover:cursor-pointer hover:bg-slate-900 text-white/80" href="/general">General</a>
-                <a class="mx-2 px-4 py-2 hover:cursor-pointer hover:bg-slate-900 text-white/80" href="/premium">Premium</a>
+              <div
+                id="navbar-dropdown"
+                class="lg:fixed flex flex-col bg-slate-950 top-[3.1rem] py-2 hidden"
+              >
+                <a
+                  class="mx-2 px-4 py-2 hover:cursor-pointer hover:bg-slate-900 text-white/80"
+                  href="/general"
+                  >General</a
+                >
+                <a
+                  class="mx-2 px-4 py-2 hover:cursor-pointer hover:bg-slate-900 text-white/80"
+                  href="/premium"
+                  >Premium</a
+                >
               </div>
             </div>
             <a
@@ -78,7 +85,7 @@
               >Contact</a
             >
             <a
-              href="/book-now"
+              href="/availability"
               class="mx-2 rounded-full px-4 py-1 mr-0 hover:cursor-pointer text-slate-900/80 bg-slate-300 hover:bg-slate-300/80 transition-all duration-200 ease-in-out"
               >Book Now</a
             >
@@ -89,9 +96,13 @@
     {{block "content" .}}
     {{ end }}
 
-    <script src="/static/javascripts/global/script.js"></script>
+    <script
+      type="text/javascript"
+      src="/static/javascripts/jquery/jquery-3.7.1.min.js"
+    ></script>
     {{block "js" .}}
     {{ end }}
+    <script src="/static/javascripts/global/script.js"></script>
   </body>
 </html>
 {{ end }}

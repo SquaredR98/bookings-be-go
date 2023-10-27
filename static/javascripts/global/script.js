@@ -1,47 +1,58 @@
-$("#menu-bar").on("click", function () {
-  if ($("#menu-container").hasClass("hidden")) {
-    $("#menu-container").addClass(
-      "fixed flex-col h-screen w-3/4 right-0 top-0 flex"
+const menuContainer = document.getElementById("menu-container");
+const menuItems = document.getElementById("menu-items");
+
+document.getElementById("menu-bar").addEventListener("click", () => {
+  if (menuContainer.classList.contains("hidden")) {
+    menuContainer.classList.add(
+      "fixed",
+      "flex-col",
+      "h-screen",
+      "w-3/4",
+      "right-0",
+      "top-0",
+      "flex",
+      "z-[9999]"
     );
-    $("#menu-items").addClass(
-      "flex flex-col justify-center items-center h-full"
+    menuItems.classList.add(
+      "flex",
+      "flex-col",
+      "justify-center",
+      "items-center",
+      "h-full"
     );
-    $("#menu-items *").addClass("text-xl w-full text-center py-2");
-    $("#close-btn").addClass("flex justify-end m-4");
-    $("#menu-container").removeClass("hidden");
+    menuItems.querySelectorAll("*").forEach((el) => {
+      el.classList.add("text-xl", "w-full", "text-center", "py-2");
+    });
+    document
+      .getElementById("close-btn")
+      .classList.add("flex", "justify-end", "m-4");
+    menuContainer.classList.remove("hidden");
   } else {
-    $("#menu-container").addClass("hidden");
+    menuContainer.classList.add("hidden");
   }
 });
 
-$("#close-btn").on("click", function () {
-  if (!$("#menu-container").hasClass("hidden")) {
-    $("#menu-container").addClass("hidden");
-  } else {
+document.getElementById("close-btn").addEventListener("click", () => {
+  if (!menuContainer.classList.contains("hidden")) {
+    menuContainer.classList.add("hidden");
   }
 });
 
-const suitesLink = document.getElementById('suites-link');
-const dropdownIcon = document.getElementById('dropdown-icon')
-const navbarDropdown = document.getElementById('navbar-dropdown')
+const suitesLink = document.getElementById("suites-link");
+const dropdownIcon = document.getElementById("dropdown-icon");
+const navbarDropdown = document.getElementById("navbar-dropdown");
 
-// Function to show the dropdown
 function showDropdown() {
-  navbarDropdown.classList.remove('hidden');
+  navbarDropdown.classList.add("z-[9999]");
+  navbarDropdown.classList.remove("hidden");
 }
-
-// Function to hide the dropdown
 function hideDropdown() {
   navbarDropdown.classList.add("hidden");
 }
 
-// Event listener to show the dropdown when the link is hovered over
 suitesLink.addEventListener("mouseover", showDropdown);
-
-// Event listener to hide the dropdown when the mouse leaves the dropdown area
 navbarDropdown.addEventListener("mouseleave", hideDropdown);
 
-// Event listener to hide the dropdown when clicking outside of it
 document.addEventListener("click", function (event) {
   if (event.target !== suitesLink) {
     hideDropdown();
@@ -65,11 +76,70 @@ function Prompt() {
         toast.addEventListener("mouseleave", Swal.resumeTimer);
       },
     });
-    Toast.fire({})
+    Toast.fire({});
   };
 
-  return { toast }
-}
+  let success = function (c) {
+    const { msg = "", title = "", footer = "" } = c;
 
-const prompt = Prompt();
-prompt.toast({ message: "Hello Guys" })
+    Swal.fire({
+      icon: "success",
+      title: title,
+      text: msg,
+      footer: footer,
+    });
+  };
+
+  let error = function (c) {
+    const { msg = "", title = "", footer = "" } = c;
+
+    Swal.fire({
+      icon: "error",
+      title: title,
+      text: msg,
+      footer: footer,
+    });
+  };
+
+  async function custom(c) {
+    const { msg = "", title = "" } = c;
+
+    const { value: result } = await Swal.fire({
+      title: title,
+      html: msg,
+      backdrop: false,
+      focusConfirm: false,
+      showCancelButton: true,
+      willOpen: () => c.willOpen && c.willOpen(),
+      didOpen: () => c.didOpen && c.didOpen(),
+      preConfirm: () => {
+        return [
+          document.getElementById("startDate").value,
+          document.getElementById("endDate").value,
+        ];
+      },
+    });
+
+    if (result) {
+      console.log(result)
+      if (result.dismiss !== Swal.DismissReason.cancel) {
+        if (result.value !== "") {
+          if (c.callback !== undefined) {
+            c.callback(result);
+          }
+        } else {
+          c.callback(false);
+        }
+      } else {
+        c.callback(false);
+      }
+    }
+  }
+
+  return {
+    toast: toast,
+    success: success,
+    error: error,
+    custom: custom,
+  };
+}

@@ -1,41 +1,43 @@
-{{template "base" .}}
+{{ template "base" . }}
 
-{{define "content"}}
-<div class="lg:w-10/12 xl:w-8/12 mx-auto">
-  <h1 class="text-4xl font-bold text-center my-8">Search For Availability</h1>
-  <form class="w-11/12 mx-auto">
-    <div
-      class="flex flex-col w-full lg:w-full md:flex-row mx-auto"
-      id="range-picker"
-    >
-      <div class="md:w-1/2 md:mr-2">
-        <label for="startDate" hidden class="text-xl font-bold">Start Date</label>
-        <input
-          required
-          name="startDate"
-          id="startDate"
-          placeholder="Arrival"
-          class="rounded-md my-2 outline-none border p-2 w-full"
-        />
-      </div>
-      <div class="md:w-1/2 md:ml-2">
-        <label for="endDate" hidden class="text-xl font-bold">End Date</label>
-        <input
-          required
-          id="endDate"
-          placeholder="Departure"
-          name="endDate"
-          class="rounded-md my-2 outline-none border p-2 w-full"
-        />
-      </div>
+<div class="w-full md:w-8/12 xl:w-1/3 mx-auto">
+  <h1 class="text-4xl font-bold text-center my-4">Make Reservation</h1>
+  {{$res := index .Data "reservation"}}
+  <form id="reservation-form" class="border p-8 rounded-md shadow-lg" action="/make-reservation" method="post">
+    <div>
+      <input id="csrfToken" type="hidden" name="csrf_token" value="{{.CSRFToken}}" />
     </div>
-    <button
-      class="bg-slate-800 text-white px-8 rounded-full hover:shadow-lg w-full py-3 md:w-full my-4 mx-auto"
-    >
-      Check Availability
+    <div>
+      {{with .Form.Error.Get "name"}}
+      <p class="text-red-400">{{.}}</p>
+      {{ end }}
+      <label hidden class="text-xl" for="name">Full Name</label>
+      <input
+        class="w-full border py-2 text-xl px-4 my-2 rounded-full {{with .Form.Error.Get "name"}} border-red-400 {{end}}"
+        id="name" type="text" name="name" placeholder="Full Name" value="{{$res.Fullname}}" />
+    </div>
+    <div>
+      {{with .Form.Error.Get "email"}}
+      <p class="text-red-400">{{.}}</p>
+      {{ end }}
+      <label hidden class="text-xl" for="email">Email</label>
+      <input class="w-full border py-2 text-xl px-4 my-2 rounded-full {{with .Form.Error.Get "email"}} border-red-400 {{end}}" 
+      id="email" type="text" name="email" placeholder="Email" value="{{$res.Email}}" />
+    </div>
+    <div>
+      {{with .Form.Error.Get "phone"}}
+      <p class="text-red-400">{{.}}</p>
+      {{ end }}
+      <label hidden class="text-xl" for="mobile">Mobile</label>
+      <input class="w-full border py-2 text-xl px-4 my-2 rounded-full {{with .Form.Error.Get "name"}} border-red-400 {{end}}" 
+      id="mobile" type="tel" name="mobile" placeholder="Mobile" value="{{$res.Phone}}" />
+    </div>
+    <button class="bg-slate-800 w-full py-3 text-slate-50 rounded-full mt-4" type="submit">
+      Make Reservation
     </button>
   </form>
 </div>
-<script src="/static/javascripts/datepicker/datepicker-full.min.js"></script>
-<script src="/static/javascripts/global/reservation.script.js"></script>
+
+{{define "js"}}
+<!-- <script type="text/javascript" src="/static/javascripts/global/reservation.script.js"></script> -->
 {{ end }}

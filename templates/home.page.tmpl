@@ -3,7 +3,7 @@
 {{define "content"}}
 <div id="home-carousel">
   <div
-    class="h-[90vh]"
+    class="h-[40vh] lg:h-[70vh]"
     style="
       background-image: url('/static/pexels-engin-akyurt-2952663.jpg');
       background-size: cover;
@@ -16,7 +16,7 @@
     </div>
   </div>
   <div
-    class="h-[90vh]"
+    class="h-[40vh] lg:h-[70vh]"
     style="
       background-image: url('/static/pexels-pixabay-164595.jpg');
       background-size: cover;
@@ -29,7 +29,7 @@
     </div>
   </div>
   <div
-    class="h-[90vh]"
+    class="h-[40vh] lg:h-[70vh]"
     style="
       background-image: url('/static/pexels-pixabay-271618.jpg');
       background-size: cover;
@@ -53,12 +53,14 @@
   <div class="flex justify-center w-full">
     <a
       class="bg-slate-800 text-white px-8 rounded-full hover:shadow-lg py-3"
-      href="/book-now"
+      href="/search-availability"
       >Make Reservation Now</a
     >
   </div>
 </div>
+{{ end }}
 
+{{define "js"}}
 <script
   type="text/javascript"
   src="/static/javascripts/slick/slick.min.js"

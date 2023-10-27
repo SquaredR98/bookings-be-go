@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/SquaredR98/bookings-be/pkg/config"
-	"github.com/SquaredR98/bookings-be/pkg/models"
-	"github.com/SquaredR98/bookings-be/pkg/render"
+	"github.com/SquaredR98/bookings-be/internal/config"
+	"github.com/SquaredR98/bookings-be/internal/models"
+	"github.com/SquaredR98/bookings-be/internal/render"
 )
 
 var Repo *Repository

@@ -6,9 +6,9 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/SquaredR98/bookings-be/pkg/config"
-	"github.com/SquaredR98/bookings-be/pkg/handlers"
-	"github.com/SquaredR98/bookings-be/pkg/render"
+	"github.com/SquaredR98/bookings-be/internal/config"
+	"github.com/SquaredR98/bookings-be/internal/handlers"
+	"github.com/SquaredR98/bookings-be/internal/render"
 	"github.com/alexedwards/scs/v2"
 )
 

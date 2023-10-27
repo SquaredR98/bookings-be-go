@@ -3,8 +3,8 @@ package main
 import (
 	"net/http"
 
-	"github.com/SquaredR98/bookings-be/pkg/config"
-	"github.com/SquaredR98/bookings-be/pkg/handlers"
+	"github.com/SquaredR98/bookings-be/internal/config"
+	"github.com/SquaredR98/bookings-be/internal/handlers"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 )

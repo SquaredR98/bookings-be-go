@@ -2,9 +2,11 @@ package handlers
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/SquaredR98/bookings-be/internal/config"
+	"github.com/SquaredR98/bookings-be/internal/forms"
 	"github.com/SquaredR98/bookings-be/internal/models"
 	"github.com/SquaredR98/bookings-be/internal/render"
 )
@@ -54,5 +56,40 @@ func (m *Repository) PostAvailability(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(fmt.Sprintf("Start Date: %s, End Date: %s", start, end)))
 }
 func (m *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplates(w, r, "reservation.page.tmpl", &models.TemplateData{})
+	var emptyReservation models.Reservation
+	data := make(map[string]interface{})
+	data["reservation"] = emptyReservation
+	render.RenderTemplates(w, r, "reservation.page.tmpl", &models.TemplateData{
+		Form: forms.New(nil),
+		Data: data,
+	})
+}
+func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
+	err := r.ParseForm()
+	if err != nil {
+		log.Println("Something went wrong", err)
+	}
+	reservation := models.Reservation{
+		Fullname: r.Form.Get("name"),
+		Email:    r.Form.Get("email"),
+		Phone:    r.Form.Get("mobile"),
+	}
+
+	form := forms.New(r.PostForm)
+
+	// form.Has("name", r)
+	form.Required("name", "email")
+	form.MinLength("name", 3, r)
+	form.IsEmail("email")
+
+	log.Println("React=hed Here")
+	if !form.Valid() {
+		data := make(map[string]interface{})
+		data["reservation"] = reservation
+		render.RenderTemplates(w, r, "reservation.page.tmpl", &models.TemplateData{
+			Form: form,
+			Data: data,
+		})
+		return
+	}
 }

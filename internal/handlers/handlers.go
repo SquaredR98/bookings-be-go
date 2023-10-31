@@ -2,11 +2,11 @@ package handlers
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 
 	"github.com/SquaredR98/bookings-be/internal/config"
 	"github.com/SquaredR98/bookings-be/internal/forms"
+	"github.com/SquaredR98/bookings-be/internal/helpers"
 	"github.com/SquaredR98/bookings-be/internal/models"
 	"github.com/SquaredR98/bookings-be/internal/render"
 )
@@ -28,18 +28,10 @@ func NewHandlers(r *Repository) {
 }
 
 func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
-	remoteIp := r.RemoteAddr
-	m.App.Session.Put(r.Context(), "remoteIp", remoteIp)
 	render.RenderTemplates(w, r, "home.page.tmpl", &models.TemplateData{})
 }
 func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
-	stringMap := make(map[string]string)
-	stringMap["test"] = "Hello Again"
-	remoteIp := m.App.Session.GetString(r.Context(), "remoteIp")
-	stringMap["remoteIp"] = remoteIp
-	render.RenderTemplates(w, r, "general.page.tmpl", &models.TemplateData{
-		StringMap: stringMap,
-	})
+	render.RenderTemplates(w, r, "about.page.tmpl", &models.TemplateData{})
 }
 func (m *Repository) GeneralSuite(w http.ResponseWriter, r *http.Request) {
 	render.RenderTemplates(w, r, "general.page.tmpl", &models.TemplateData{})
@@ -67,7 +59,7 @@ func (m *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
 func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 	err := r.ParseForm()
 	if err != nil {
-		log.Println("Something went wrong", err)
+		helpers.ServerError(w, err)
 	}
 	reservation := models.Reservation{
 		Fullname: r.Form.Get("name"),
@@ -100,7 +92,7 @@ func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 func (m *Repository) ReservationSummary(w http.ResponseWriter, r *http.Request) {
 	reservation, ok := m.App.Session.Get(r.Context(), "reservation").(models.Reservation)
 	if !ok {
-		log.Println("Cannot get item from session")
+		m.App.ErrorLog.Println("Can't get error from seesion")
 		m.App.Session.Put(r.Context(), "error", "Can't get reservation from session.")
 		http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
 		return

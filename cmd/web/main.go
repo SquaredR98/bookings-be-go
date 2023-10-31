@@ -5,10 +5,12 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/SquaredR98/bookings-be/internal/config"
 	"github.com/SquaredR98/bookings-be/internal/handlers"
+	"github.com/SquaredR98/bookings-be/internal/helpers"
 	"github.com/SquaredR98/bookings-be/internal/models"
 	"github.com/SquaredR98/bookings-be/internal/render"
 	"github.com/alexedwards/scs/v2"
@@ -20,11 +22,14 @@ var app config.AppConfig
 
 var session *scs.SessionManager
 
+var infoLog *log.Logger
+var errorLog *log.Logger
+
 func main() {
 	err := runServer()
 
 	if err != nil {
-		log.Fatal("err")
+		log.Fatal("Error running server", err)
 	}
 
 	fmt.Printf("Server running on PORT: %s", PORT)
@@ -45,6 +50,12 @@ func runServer() error {
 	gob.Register(models.Reservation{})
 
 	app.InProduction = false
+
+	infoLog = log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
+	app.InfoLog = infoLog
+
+	errorLog = log.New(os.Stdout, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
+	app.ErrorLog = errorLog
 
 	session = scs.New()
 	session.Lifetime = 24 * time.Hour
@@ -68,6 +79,7 @@ func runServer() error {
 	handlers.NewHandlers(repo)
 
 	render.NewTemplate(&app)
+	helpers.NewHelper(&app)
 
 	return nil
 }

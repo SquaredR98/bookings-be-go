@@ -1,0 +1,7 @@
+create_table("room_restrictions") {
+  t.Column("id", "integer", { primary: true })
+  t.Column("start_date", "string", { default: "" })
+  t.Column("end_date", "string", { default: "" })
+  t.Column("reservation_id", "string", { default: "" })
+  t.Column("restriction_id", "string", { default: "" })
+}

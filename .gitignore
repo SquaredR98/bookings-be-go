@@ -24,3 +24,5 @@ bookings
 
 .vscode
 .DS_store
+
+database.yml
